@@ -1,6 +1,5 @@
 
 hist(c(dat),breaks = 100)
-# plot(c(dat),pch=".")
 data2 <- scale(dat,center = T)
 
 sum(is.na(data2))
@@ -66,9 +65,9 @@ re5[[i]] <- srgmm::srgmm(datum = (data2),
 # saveRDS(re5,file = "K5_10runs.RDS")
 
 
-re3 = readRDS("K3_10runs.RDS")
-re4 = readRDS("K4_10runs.RDS")
-re5 = readRDS("K5_10runs.RDS")
+re3 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K3_10runs.RDS")
+re4 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K4_10runs.RDS")
+re5 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K5_10runs.RDS")
 
 plot(unlist(lapply(re3, function(x) x$max.logL)))
 plot(unlist(lapply(re4, function(x) x$max.logL)))
@@ -79,7 +78,7 @@ ind4=which.max(unlist(lapply(re4, function(x) x$max.logL)))
 ind5=which.max(unlist(lapply(re5, function(x) x$max.logL)))
 
 
-saveRDS(re3[[ind3]],"best3.RDS")
-saveRDS(re4[[ind4]],"best4.RDS")
-saveRDS(re5[[ind5]],"best5.RDS")
+saveRDS(re3[[ind3]],"Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+saveRDS(re4[[ind4]],"Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best4.RDS")
+saveRDS(re5[[ind5]],"Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best5.RDS")
 

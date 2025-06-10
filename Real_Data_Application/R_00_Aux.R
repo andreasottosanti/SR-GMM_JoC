@@ -8,9 +8,9 @@ library(invgamma)
 library(MASS)
 library(fields)
 
-data <- readRDS("00_DATA/APPLICATION/data.RDS")
-load("00_DATA/APPLICATION/prostate_cancer.Rdata")
-load("00_DATA/APPLICATION/results_prostate_500genes_4K.Rdata")
+data <- readRDS("Real_Data_Application/00_DATA/APPLICATION/data.RDS")
+load("Real_Data_Application/00_DATA/APPLICATION/prostate_cancer.Rdata")
+load("Real_Data_Application/00_DATA/APPLICATION/results_prostate_500genes_4K.Rdata")
 clust <- Ds[data$order]
 dat = data$datum.ord
 pix = data$locs.ord
@@ -54,13 +54,6 @@ plot_tissue_discr = function(D, filling, palette = "davos"){
   
   
 }
-
-#plot_tissue_discr(pix = pix,clust,palette = "imola")
-#plot_tissue_discr(pix,colMeans(dat),palette = "imola")
-
-# scico_palette_show(categorical = T)
-
-
 
 get_precision = function(res, ind, inverse = FALSE){
   U_3 <- get_map(res$thetas[ind,], 
