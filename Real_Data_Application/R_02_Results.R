@@ -1,21 +1,73 @@
+rm(list = ls())
 library(patchwork)
+library(ggplot2)
+library(srgmm)
+library(fields)
+library(imager)
+
+
+
+# Figure 1 ----------------------------------------------------------------
+
+plot_tissue_cont = function(D, 
+                            palette = "davos", 
+                            facet = NULL){
+  
+  G <- ggplot(D)+
+    ggstar::geom_star(aes(x = x,
+                          y = y,
+                          fill = value),
+                      color = 1 ,
+                      starstroke = 0.01,
+                      starshape = "hexagon", 
+                      size = 2.7) +
+    ggview::canvas(h=7,w=7)+
+    scico::scale_fill_scico(palette = palette)+
+    #  scale_fill_viridis_c(option = "A")+
+    theme(legend.position = "none",text= element_text(size=20))+
+    xlab("x coord.")+ylab("y coord.")+ facet_wrap(~facet) 
+  G
+}
+
+
+plot_tissue_discr = function(D, filling, palette = "davos"){
+  
+  G <- ggplot(D)+
+    ggstar::geom_star(aes(x=x,y=y,
+                          fill=value),
+                      color =   1 ,starstroke=.1,
+                      #                    position = position_jitter(width = 0.25),
+                      starshape = "hexagon", 
+                      size = 2.7) +
+    ggview::canvas(h=7,w=7)+
+    scico::scale_fill_scico_d(palette = palette)+
+    #  scale_fill_viridis_c(option = "A")+
+    theme(legend.position = "bottom",text= element_text(size=20))+
+    xlab("x coord.")+ylab("y coord.")+ facet_wrap(~facet) 
+  G
+  
+  
+}
+
+
 theme_set(theme_bw())
+
+data <- readRDS("Real_Data_Application/00_DATA/APPLICATION/data.RDS")
+dat <- data$datum.ord
+pix <- data$locs.ord
 
 ppix <- rbind(pix,pix,pix)
 
-library(cluster)
 
 Cor <-  cor(dat)
 dis <- as.matrix(dist(pix))
 CM <- rowSums(Cor*dis)/rowSums(dis)
 
-# EDA --------------------
 col1 <- colMeans(dat)
 col2 <- apply(dat,2,function(x) (sd(x)))
-plot(col2)
-col0 <- clust
 
-normalizer= function(x) (x-min(x))/(max(x)-min(x))
+
+normalizer <- function(x) (x-min(x))/(max(x)-min(x))
 
 D_mean <- data.frame(x = pix[,1],
                 y=1-pix[,2],
@@ -25,79 +77,30 @@ D_sd <- data.frame(x = pix[,1],
                      y=1-pix[,2],
                      value = normalizer(col2),
                      facet = "Std. dev. of the gene expressions")
-D_clus <- data.frame(x = pix[,1],
-                     y=1-pix[,2],
-                     value = factor(col0),
-                     facet = "Biological segmentation")
 D_cm <- data.frame(x = pix[,1],
                      y=1-pix[,2],
                      value = normalizer(CM),
                      facet = "Avg. correlation weighted by distance")
 
-b0 =  plot_tissue_discr(D = D_clus, palette = "oslo")
 b1 =  plot_tissue_cont(D = D_mean,  palette = "oslo")
 b2 =  plot_tissue_cont(D = D_cm,    palette = "oslo")
 b3 =  plot_tissue_cont(D = D_sd,    palette = "oslo")
 
-M <- (b1+b3+b2+
-        plot_layout(axis_titles = 'collect')) + ggview::canvas(h=7,w=21)
-M 
-
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.pdf",h=7,w=21)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.png",h=7,w=21)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.eps",h=7,w=21)
-
-
-
-
-
-M <- (b0+
-        plot_layout(axis_titles = 'collect')) + ggview::canvas(h=7,w=7)
-
-
-col0 <- ifelse(clust==4, "Tumor",ifelse(clust==3,"Stroma",
-                                  ifelse(clust==2,"Fibroblast",
-                                                  "Gland")))
-D_clus <- data.frame(x = pix[,1],
-                     y=1-pix[,2],
-                     value = factor(col0),
-                     facet = "Biological segmentation")
-b0 =  plot_tissue_discr(D = D_clus, palette = "oslo")
-M <- (b1+b3+b2+b0+
-        plot_layout(axis_titles = 'collect')) + 
-  ggview::canvas(h=16,w=15)+
-  scale_fill_brewer("")
-M
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr_v3.pdf",h=16,w=15)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr_v3.png",h=16,w=15)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr_v3.eps",h=16,w=15)
-
-
-# -------------------------------------------------------------------------
-
-
-library(imager)
-orig = load.image("vis10x.png")
+orig = load.image("Real_Data_Application/vis10x.png")
 
 down <- resize(orig,round( width(orig)/2),
                round(height(orig)/2))
-prod(dim(down)[1:2])
 
 Dr <- as.data.frame(down) %>% filter(cc==1) %>% dplyr::select(-cc)
 Dg <- as.data.frame(down) %>% filter(cc==2) %>% dplyr::select(-cc)
 Db <- as.data.frame(down) %>% filter(cc==3) %>% dplyr::select(-cc)
 
 D = Dr %>% rename(r = value) %>% mutate(g = Dg$value, b = Db$value)
-kme = kmeans(D[,3:5],10)
-plot(down)
-
 kme <- kmeans(D[,3:5],10)
-kme$centers
 ind <- which.min(kme$centers[,1])
 ind = 0
 D_only <- D %>% mutate(cl = kme$cluster) %>% filter(cl != ind) %>% 
   mutate(col = rgb(r,g,b))
-D_only
 Fig = ggplot(D_only)+
   #  ylim(10,210)+
   theme_bw()+
@@ -114,7 +117,6 @@ Fig = ggplot(D_only)+
   theme(legend.position = "none")+# +
   xlab("x coord.")+  ylab("y coord.")
 
-Fig
 M <- (b1+b3+b2+Fig+
         plot_layout(axis_titles = 'collect')) + 
   ggview::canvas(h=16,w=16)+
@@ -130,43 +132,11 @@ ggsave("01_OUTPUT/APPLICATION/PLOT/Descr_v4.eps",h=16,w=16)
 
 
 
-
-R = readRDS(file = "01_OUTPUT/APPLICATION/RDS/semivariogr_50dots_sotto.RDS")
-
-M2 = ggplot(R)+
-  geom_line(aes(x=dist,y= log(vari) ,group=gene),lty=1,
-            alpha=.3, col="darkblue",lwd=.4)+
-  ylab("semivariance")+
-  facet_wrap(~"Gene-specific empirical semivariograms")+theme(text = element_text(size=20))
-M+M2 + ggview::canvas(h=7,w=14)
-
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr2.pdf",h=7,w=14)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr2.png",h=7,w=14)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr2.eps",h=7,w=14)
-
-
-
-M <- (b1+b3+b2+
-        plot_layout(axis_titles = 'collect')) + ggview::canvas(h=7,w=21)
-M 
-
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.pdf",h=7,w=21)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.png",h=7,w=21)
-ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.eps",h=7,w=21)
-
-
-
 # Results clustering ------------------------------------------------------
 
-<<<<<<< HEAD
 re3 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 re4 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best4.RDS")
 re5 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best5.RDS")
-=======
-re3 <- readRDS("01_OUTPUT/APPLICATION/RDS/best3.RDS")
-re4 <- readRDS("01_OUTPUT/APPLICATION/RDS/best4.RDS")
-re5 <- readRDS("01_OUTPUT/APPLICATION/RDS/best5.RDS")
->>>>>>> b86f12cc99353d831acd9b756ac6f651287ccabe
 
 
 #######################################################
