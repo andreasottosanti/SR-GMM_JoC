@@ -81,7 +81,7 @@ table(df3$lab)
 
 D1 <- df %>% mutate(type="Simulation 1")
 D2 <- df2 %>% mutate(type="Simulation 2")
-#D3 <- df3 %>% mutate(type="Simulation 3")
+D3 <- df3 %>% mutate(type="Simulation 3")
 
 D3 <- rbind(D1,D2,D3)
 table(D3$lab,D3$Model)
