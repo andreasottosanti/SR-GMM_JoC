@@ -29,6 +29,7 @@ re3[[i]] <- srgmm::srgmm(datum = (data2),
                            penalization_theta  = 100, 
                            penalization_mu = 100, 
                            nu = 1, 
+<<<<<<< HEAD
                            maxit = 50)
 }
 saveRDS(re3,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K3_10runs.RDS")
@@ -36,6 +37,16 @@ saveRDS(re3,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K3_10runs.RD
 for(i in 1:10){
 set.seed(1234*i)
 re4[[i]] <- srgmm::srgmm(datum = (data2), 
+=======
+                           maxit = 50,
+                           stochastic = T)
+}
+# saveRDS(re3,file = "K3_10runs.RDS")
+
+for(i in 1:10){
+set.seed(1234*i)
+re4[[i]] <- srgmm::srgmm(datum =(data2), 
+>>>>>>> b86f12cc99353d831acd9b756ac6f651287ccabe
                            locs = results$data$locs.ord, 
                            K = 4, 
                            optim.lim = c(-6,4.1),
@@ -43,9 +54,16 @@ re4[[i]] <- srgmm::srgmm(datum = (data2),
                            penalization_theta  = 100, 
                            penalization_mu = 100, 
                            nu = 1, 
+<<<<<<< HEAD
                            maxit = 50)
 }
 saveRDS(re4,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K4_10runs.RDS")
+=======
+                           maxit = 50,
+                           stochastic = T)
+}
+# saveRDS(re4,file = "K4_10runs.RDS")
+>>>>>>> b86f12cc99353d831acd9b756ac6f651287ccabe
 for(i in 1:10){
 set.seed(12345*i)
 re5[[i]] <- srgmm::srgmm(datum = (data2), 
@@ -56,10 +74,18 @@ re5[[i]] <- srgmm::srgmm(datum = (data2),
                            penalization_theta  = 100, 
                            penalization_mu = 100, 
                            nu = 1, 
+<<<<<<< HEAD
                            maxit = 50)
 
 }
 saveRDS(re5,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K5_10runs.RDS")
+=======
+                           maxit = 50,
+                           stochastic = T)
+
+}
+# saveRDS(re5,file = "K5_10runs.RDS")
+>>>>>>> b86f12cc99353d831acd9b756ac6f651287ccabe
 
 
 re3 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K3_10runs.RDS")

@@ -158,9 +158,15 @@ ggsave("01_OUTPUT/APPLICATION/PLOT/Descr.eps",h=7,w=21)
 
 # Results clustering ------------------------------------------------------
 
+<<<<<<< HEAD
 re3 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 re4 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best4.RDS")
 re5 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best5.RDS")
+=======
+re3 <- readRDS("01_OUTPUT/APPLICATION/RDS/best3.RDS")
+re4 <- readRDS("01_OUTPUT/APPLICATION/RDS/best4.RDS")
+re5 <- readRDS("01_OUTPUT/APPLICATION/RDS/best5.RDS")
+>>>>>>> b86f12cc99353d831acd9b756ac6f651287ccabe
 
 
 #######################################################
