@@ -16,7 +16,7 @@ re5  = list()
 for(i in 1:10){
   cat(paste("------------------- RUN",i,"-------------------"))
   re3[[i]] <- srgmm::srgmm(datum = (data2), 
-                             locs = results$data$locs.ord, 
+                             locs = coordinates, 
                              K = 3, 
                              optim.lim = c(-6,4.1),
                              conv_thres  = 1e-4,
@@ -31,7 +31,7 @@ saveRDS(re3,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K3_10runs.RD
 for(i in 1:10){
   cat(paste("------------------- RUN",i,"-------------------"))
   re4[[i]] <- srgmm::srgmm(datum = (data2), 
-                           locs = results$data$locs.ord, 
+                           locs = coordinates, 
                            K = 4, 
                            optim.lim = c(-6,4.1),
                            conv_thres  = 1e-4,
@@ -46,7 +46,7 @@ saveRDS(re4,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K4_10runs.RD
 for(i in 1:10){
   cat(paste("------------------- RUN",i,"-------------------"))
   re5[[i]] <- srgmm::srgmm(datum = (data2), 
-                           locs = results$data$locs.ord, 
+                           locs = coordinates, 
                            K = 5, 
                            optim.lim = c(-6,4.1),
                            conv_thres  = 1e-4,

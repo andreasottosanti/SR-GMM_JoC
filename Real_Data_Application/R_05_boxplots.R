@@ -33,3 +33,22 @@ ggplot(val, aes(x = gene, y = values))+geom_boxplot()+theme_bw()+
         strip.text = element_text(size = 18))
 ggsave("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/genes_boxplot.pdf", width = 15, height = 9)
 
+
+# centered data -----------------------------------------------------------
+library(dplyr)
+val <- val %>%
+  group_by(gene) %>%
+  mutate(values = values - mean(values))
+tapply(val$values, val$gene, mean)
+
+
+ggplot(val, aes(x = gene, y = values))+geom_boxplot()+theme_bw()+
+  labs(x = "Genes",y = "Deviance residuals (centered)")+
+  geom_hline(yintercept = 0, col = 2, lty = 2)+
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(), 
+        axis.text.y = element_text(size = 18),
+        axis.title = element_text(size = 18),
+        plot.title = element_text(size = 18, hjust = .5),
+        strip.text = element_text(size = 18))
+ggsave("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/genes_boxplot_centered.pdf", width = 15, height = 9)
