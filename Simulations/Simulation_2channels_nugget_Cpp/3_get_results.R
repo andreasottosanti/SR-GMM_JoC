@@ -116,8 +116,8 @@ n_iter_plot <- ggplot(Comp_time, aes(x = setup, y = tot_iter+1))+geom_boxplot()+
 
 
 
-ggsave(filename = paste(dirname(rstudioapi::getSourceEditorContext()$path), "/Runtime_nugget",".pdf",sep=""),
-       plot = runtime_plot, width = 12, height = 9)
+#ggsave(filename = paste(dirname(rstudioapi::getSourceEditorContext()$path), "/Runtime_nugget",".pdf",sep=""),
+#       plot = runtime_plot, width = 12, height = 9)
 ggsave(filename = paste(dirname(rstudioapi::getSourceEditorContext()$path), "/Runtime_per_iter_nugget",".pdf",sep=""),
        plot = runtime_plot_std, width = 12, height = 9)
 ggsave(filename = paste(dirname(rstudioapi::getSourceEditorContext()$path), "/N_iter_nugget",".pdf",sep=""),
