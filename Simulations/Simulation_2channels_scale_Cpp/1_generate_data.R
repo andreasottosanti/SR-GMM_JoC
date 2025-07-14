@@ -2,7 +2,7 @@ rm(list = ls())
 set.seed(123)
 working_directory <- dirname(rstudioapi::getSourceEditorContext()$path)
 
-n <- c(100, 100)   # number of observations per cluster
+n <- c(150, 50)   # number of observations per cluster
 p <- 500
 
 simulation_type <- paste(n[1], n[2], sep="_") # options can be "100_100" or "150_50"
