@@ -4,6 +4,7 @@ library(NPVecchia)
 library(Matrix)
 library(fields)
 library(ggplot2)
+library(latex2exp)
 
 res <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 
@@ -15,8 +16,8 @@ xtable::xtable(table(srgmm = res$Z, kmeans = res_kmeans$cluster))
 
 
 # Computing the connectivity ----------------------------------------------
-res <- rho_k(x = res, k = 1:3, compute_covariance = T)
-saveRDS(res, file = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+#res <- rho_k(x = res, k = 1:3, compute_covariance = T)
+#saveRDS(res, file = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 
 
 dd <- data.frame(x = rep(res$data$locs.ord[,1],3),
@@ -32,19 +33,18 @@ ggplot(dd, aes(x = x, y = y, col = rho))+ggstar::geom_star(aes(x = x,
                                                            starshape = "hexagon", 
                                                            size = 2.7)+theme_bw()+
   facet_wrap(~cluster)+
-  scico::scale_fill_scico(expression(rho[i]^(k)),palette = "oslo")+
-  labs(x = "x coord.", y = "y coord.", col = expression(rho[i]^(k)))+
-  theme(axis.text.x = element_blank(), 
-        axis.ticks.x = element_blank(), 
-        axis.text.y = element_text(size = 18),
-        axis.title = element_text(size = 18),
-        plot.title = element_text(size = 18, hjust = .5),
-        strip.text = element_text(size = 18), 
+  scico::scale_fill_scico(#TeX("$\\rho^{(k)}_i$"),
+    expression(rho[i]^{(k)}),
+                          palette = "oslo")+
+  labs(x = "x coord.", y = "y coord.")+
+  theme(text = element_text(size = 20),
         legend.key.width = unit(2, "cm"),
-        legend.position = "bottom",
-        legend.text = element_text(size = 18),
-        legend.title = element_text(size = 18))
+        legend.position = "bottom")
 
 
 ggsave(filename = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.pdf", 
+       width = 21, height = 8)
+ggsave(filename = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.png", 
+       width = 21, height = 8)
+ggsave(filename = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.eps", 
        width = 21, height = 8)
