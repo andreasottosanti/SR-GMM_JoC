@@ -15,7 +15,7 @@ plots <- list()
 plots[[1]] <- ggplot(gg, aes(x = model, y = time/(tot.iter+1)))+geom_boxplot()+theme_bw()+
   labs(x = NULL, y = "Average runtime per iteration (in sec.)")+
   theme(axis.title = element_text(size = 18), 
-        axis.text = element_text(size = 18))
+        axis.text = element_text(size = 18))+ylim(c(200,300))
 
 plots[[2]] <- ggplot(gg, aes(x = model, y = (tot.iter+1)))+geom_boxplot()+theme_bw()+
   labs(x = NULL, y = "N. of iterations")+
