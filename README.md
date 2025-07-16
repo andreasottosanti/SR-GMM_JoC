@@ -1,5 +1,6 @@
 # SR-GMM
-Package for fitting Spatially Regularized Gaussian Mixture Models 
+This repository contains all the scripts to reproduce the analyses that appear in the article ``Spatially Regularized Gaussian Mixtures for
+Clustering Spatial Transcriptomic Data".
 
 ### Simulation experiments
 
