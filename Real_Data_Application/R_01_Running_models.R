@@ -59,6 +59,10 @@ for(i in 1:10){
 saveRDS(re5,file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K5_10runs.RDS")
 
 
+
+# select the best run -----------------------------------------------------
+
+
 re3 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K3_10runs.RDS")
 re4 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K4_10runs.RDS")
 re5 = readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/K5_10runs.RDS")
