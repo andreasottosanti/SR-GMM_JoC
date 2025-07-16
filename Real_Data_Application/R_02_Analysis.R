@@ -16,14 +16,14 @@ xtable::xtable(table(srgmm = res$Z, kmeans = res_kmeans$cluster))
 
 
 # Computing the connectivity ----------------------------------------------
-#res <- rho_k(x = res, k = 1:3, compute_covariance = T)
-#saveRDS(res, file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+res <- rho_k(x = res, k = 1:3, compute_covariance = T)
+saveRDS(res, file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 
 
-# dd <- data.frame(x = rep(res$data$locs.ord[,1],3),
-#                  y = 1-rep(res$data$locs.ord[,2],3),
-#                  rho = as.vector(t(res$data$rho_statistic)), 
-#                  cluster = as.vector(sapply(1:3, function(x) rep(paste("Cluster",x), ncol(res$data$rho_statistic)))))
+dd <- data.frame(x = rep(res$data$locs.ord[,1],3),
+                  y = 1-rep(res$data$locs.ord[,2],3),
+                  rho = as.vector(t(res$data$rho_statistic)), 
+                  cluster = as.vector(sapply(1:3, function(x) rep(paste("Cluster",x), ncol(res$data$rho_statistic)))))
 # dd$cluster <- as.factor(dd$cluster)
 # ggplot(dd, aes(x = x, y = y, col = rho))+ggstar::geom_star(aes(x = x,
 #                                                                y = y,
@@ -70,9 +70,9 @@ ggplot(dd, aes(x = x, y = y))+
         legend.position = "bottom")
 
 
-ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection2.png", 
+ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.png", 
        width = 21, height = 8)
-ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection2.pdf", 
+ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.pdf", 
        width = 21, height = 8)
-ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection2.eps", 
+ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.eps", 
        width = 21, height = 8)
