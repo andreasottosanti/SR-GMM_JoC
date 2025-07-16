@@ -6,7 +6,7 @@ library(fields)
 library(ggplot2)
 library(latex2exp)
 
-res <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+res <- readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 
 
 # Comparison with k-means -------------------------------------------------
@@ -17,34 +17,62 @@ xtable::xtable(table(srgmm = res$Z, kmeans = res_kmeans$cluster))
 
 # Computing the connectivity ----------------------------------------------
 #res <- rho_k(x = res, k = 1:3, compute_covariance = T)
-#saveRDS(res, file = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+#saveRDS(res, file = "Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 
 
-dd <- data.frame(x = rep(res$data$locs.ord[,1],3),
-                 y = 1-rep(res$data$locs.ord[,2],3),
-                 rho = as.vector(t(res$data$rho_statistic)), 
-                 cluster = as.vector(sapply(1:3, function(x) rep(paste("Cluster",x), ncol(res$data$rho_statistic)))))
-dd$cluster <- as.factor(dd$cluster)
-ggplot(dd, aes(x = x, y = y, col = rho))+ggstar::geom_star(aes(x = x,
+# dd <- data.frame(x = rep(res$data$locs.ord[,1],3),
+#                  y = 1-rep(res$data$locs.ord[,2],3),
+#                  rho = as.vector(t(res$data$rho_statistic)), 
+#                  cluster = as.vector(sapply(1:3, function(x) rep(paste("Cluster",x), ncol(res$data$rho_statistic)))))
+# dd$cluster <- as.factor(dd$cluster)
+# ggplot(dd, aes(x = x, y = y, col = rho))+ggstar::geom_star(aes(x = x,
+#                                                                y = y,
+#                                                                fill = rho),
+#                                                            color = 1 ,
+#                                                            starstroke = 0.01,
+#                                                            starshape = "hexagon", 
+#                                                            size = 2.7)+theme_bw()+
+#   facet_wrap(~cluster)+
+#   scico::scale_fill_scico(#TeX("$\\rho^{(k)}_i$"),
+#     expression(rho[i]^{(k)}),
+#                           palette = "oslo")+
+#   labs(x = "x coord.", y = "y coord.")+
+#   theme(text = element_text(size = 20),
+#         legend.key.width = unit(2, "cm"),
+#         legend.position = "bottom")
+# 
+# 
+# ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.pdf", 
+#        width = 21, height = 8)
+# ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.png", 
+#        width = 21, height = 8)
+# ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.eps", 
+#        width = 21, height = 8)
+
+
+ggplot(dd, aes(x = x, y = y))+
+  ggstar::geom_star(aes(x = x,
                                                                y = y,
-                                                               fill = rho),
-                                                           color = 1 ,
+                                                               fill = rho, col=rho) ,
                                                            starstroke = 0.01,
                                                            starshape = "hexagon", 
-                                                           size = 2.7)+theme_bw()+
+                                                           size = 3)+theme_bw()+
   facet_wrap(~cluster)+
-  scico::scale_fill_scico(#TeX("$\\rho^{(k)}_i$"),
-    expression(rho[i]^{(k)}),
-                          palette = "oslo")+
+  scico::scale_fill_scico(TeX("$\\rho^{(k)}_{i}$"),
+    #expression(rho[i]^{(k)}),
+    palette = "oslo")+
+  scico::scale_color_scico(TeX("$\\rho^{(k)}_{i}$"),
+                          #expression(rho[i]^{(k)}),
+                          palette = "oslo", guide="none")+
   labs(x = "x coord.", y = "y coord.")+
   theme(text = element_text(size = 20),
         legend.key.width = unit(2, "cm"),
         legend.position = "bottom")
 
 
-ggsave(filename = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.pdf", 
+ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection2.png", 
        width = 21, height = 8)
-ggsave(filename = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.png", 
+ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection2.pdf", 
        width = 21, height = 8)
-ggsave(filename = "~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection.eps", 
+ggsave(filename = "Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/spatial_connection2.eps", 
        width = 21, height = 8)

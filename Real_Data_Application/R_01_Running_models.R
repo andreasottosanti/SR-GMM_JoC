@@ -5,7 +5,7 @@ library(fields)
 library(srgmm)
 library(Matrix)
 
-data2 <- readRDS("~/SR-GMM/Real_Data_Application/00_DATA/APPLICATION/data.RDS")
+data2 <- readRDS("Real_Data_Application/00_DATA/APPLICATION/data.RDS")
 coordinates <- data2$locs.ord
 data2 <- data2$datum.ord
 

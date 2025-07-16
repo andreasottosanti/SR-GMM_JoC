@@ -23,7 +23,7 @@ ggplot(val[val$gene %in% group_id,], aes(x = as.factor(rep(rep(1:100, each = nro
         axis.title = element_text(size = 18),
         plot.title = element_text(size = 18, hjust = .5),
         strip.text = element_text(size = 18))
-#ggsave("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/genes_boxplot.pdf", width = 12, height = 9)
+#ggsave(Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/genes_boxplot.pdf", width = 12, height = 9)
 
 
 # all combined ------------------------------------------------------------
@@ -40,5 +40,5 @@ ggplot(val, aes(x = gene, y = values))+geom_boxplot()+theme_bw()+
         plot.title = element_text(size = 18, hjust = .5),
         strip.text = element_text(size = 18))+
   geom_line(mapping = aes(x = gene, y = mean_value, group = 1), data = aggregate_means, col = "green")
-ggsave("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/genes_boxplot.pdf", width = 15, height = 9)
+ggsave("Real_Data_Application/01_OUTPUT/APPLICATION/PLOT/genes_boxplot.pdf", width = 15, height = 9)
 

@@ -1,6 +1,6 @@
 rm(list = ls())
 library(patchwork)
-library(ggplot2)
+library(tidyverse)
 library(srgmm)
 library(fields)
 library(imager)
@@ -134,9 +134,9 @@ ggsave("01_OUTPUT/APPLICATION/PLOT/Descr_v4.eps",h=16,w=16)
 
 # Results clustering ------------------------------------------------------
 
-re3 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
-re4 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best4.RDS")
-re5 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best5.RDS")
+re3 <- readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+re4 <- readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best4.RDS")
+re5 <- readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best5.RDS")
 
 
 #######################################################

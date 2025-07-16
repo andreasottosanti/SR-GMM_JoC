@@ -1,5 +1,5 @@
 rm(list = ls())
-best3 <- readRDS("~/SR-GMM/Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
+best3 <- readRDS("Real_Data_Application/01_OUTPUT/APPLICATION/RDS/best3.RDS")
 
 library(dplyr)
 library(msigdbr)
