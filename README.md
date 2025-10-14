@@ -1,7 +1,7 @@
 # Spatially Regularized Gaussian Mixtures for Clustering Spatial Transcriptomic Data
 
-This repository contains all the scripts to reproduce the analyses that appear in the article ``Spatially Regularized Gaussian Mixtures for
-Clustering Spatial Transcriptomic Data", by A. Sottosanti, D. Risso, and F. Denti.
+This repository contains all the scripts to reproduce the analyses that appear in the article *Spatially Regularized Gaussian Mixtures for
+Clustering Spatial Transcriptomic Data*, by A. Sottosanti, D. Risso, and F. Denti.
 
 ## Installing the R package `srgmm`
 
