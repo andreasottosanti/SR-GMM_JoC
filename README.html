@@ -354,33 +354,60 @@ display: none;
 
 <div id="sr-gmm" class="section level1">
 <h1>SR-GMM</h1>
-<p>Package for fitting Spatially Regularized Gaussian Mixture Models</p>
+<p>This repository contains all the scripts to reproduce the analyses
+that appear in the article ``Spatially Regularized Gaussian Mixtures for
+Clustering Spatial Transcriptomic Data”, by A. Sottosanti, D. Risso, and
+F. Denti.</p>
+<div id="installing-the-r-package-srgmm" class="section level2">
+<h2>Installing the R package <code>srgmm</code></h2>
+<p>Before running any script in this repository, download and install
+<code>srgmm_0.0.1.tar.gz</code></p>
 <div id="simulation-experiments" class="section level3">
 <h3>Simulation experiments</h3>
 <p>The scripts are configured to automatically detect the working
 directory when run in RStudio.</p>
-<p>To reproduce a specific simulation experiment, open the corresponding
-directory within the <code>Simulations</code> folder.</p>
+<p>To reproduce a specific simulation experiment, navigate to the
+corresponding directory within the <code>Simulations</code> folder:</p>
 <ul>
-<li>to generate the data, <code>run 1_generate_data.R</code>, making
-sure to first set the number of observations per cluster. For example:
-<code>n &lt;- c(100, 100)</code> will produce two equally sized
-clusters. Simulated data shown in the article are already available in
-<code>/Data</code></li>
-<li>to perform the estimation using SR-GMM, run
-<code>2_estimate.R</code></li>
-<li>to obtain the results, run <code>3_get_results.R</code>.</li>
+<li>Run <code>1_generate_data.R</code> to generate the data.<br />
+Before running the script, set the number of observations per cluster.
+For example:<br />
+<code>n &lt;- c(100, 100)</code> will generate two equally sized
+clusters. Then, run the entire script. The simulated datasets used in
+the article are already available in the <code>/Data</code> folder.</li>
+<li>Run <code>2_estimate.R</code> to estimate SR-GMM.</li>
+<li>Run <code>3_get_results.R</code> to retrieve the results.</li>
 </ul>
 </div>
 <div id="analysis-of-the-prostate-cancer-tissue-sample" class="section level3">
 <h3>Analysis of the prostate cancer tissue sample</h3>
+<p>The directory
+<code>Real_Data_Application/01_OUTPUT/APPLICATION/RDS</code> already
+contains the file <code>best3.RDS</code>, which stores the results from
+the run that achieved the highest posterior value using three
+clusters.</p>
 <ul>
-<li>to estimate the models, run <code>R_01_Running_models.R</code></li>
-<li>to reproduce Figure 1 and Figure 5 shown in the article, use
-<code>R_02_Results.R</code></li>
-<li>to reproduce Supplementary Figures 2 and 3, use
-<code>R_03_Supplementary_Figures.R</code></li>
+<li>To generate <strong>Figure 1</strong> of the article, run
+<code>R_00_Figure1.R</code>.</li>
+<li>To estimate the models, run <code>R_01_Running_models.R</code>.</li>
+<li>To reproduce <strong>Figure 5</strong> from the article, run
+<code>R_02_Analysis.R</code>.<br />
+The file <code>best3.RDS</code> already includes the
+<code>rho_statistic</code> object, so it is only necessary to load the
+file and generate the plot—no need to rerun the analyses.</li>
+<li>To perform the <strong>gene set enrichment analysis</strong>, run
+<code>R_03_GSEA.R</code>.</li>
+<li>To reproduce <strong>Supplementary Figure 3</strong>, run
+<code>R_04_comp_time_plots.R</code>.<br />
+Note that the files <code>K3_10runs.RDS</code>,
+<code>K4_10runs.RDS</code>, and <code>K5_10runs.RDS</code> are not
+included in the
+<code>Real_Data_Application/01_OUTPUT/APPLICATION/RDS</code> directory
+due to their large size.</li>
+<li>To reproduce <strong>Supplementary Figure 2</strong>, run
+<code>R_05_boxplots.R</code>.</li>
 </ul>
+</div>
 </div>
 </div>
 
